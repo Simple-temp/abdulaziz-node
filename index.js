@@ -1,9 +1,9 @@
 import express from "express";
-import { MongoClient, ServerApiVersion } from "mongodb";
 import mongoose from "mongoose"
 import cors from "cors";
 import dotenv from "dotenv";
-import fakedata from './fakedata.js';
+// express routes
+import SeedRouter from "./Routes/SeedRouter.js";
 
 
 // dotenv configuration
@@ -23,6 +23,12 @@ mongoose.connect(process.env.MONGO_DB)
   console.log(err)
 })
 
+// all available routes are here
+app.use("/api/seed", SeedRouter)
+
+app.get("/",(req, res)=>{
+  res.send("it's perfectly works")
+})
 
 const PORT = process.env.PORT || 5000
 
