@@ -1,0 +1,25 @@
+query getBlog {
+  blog {
+    _id
+    name
+    img
+    des
+    details
+  }
+}
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+query blogById($blogid: ID!) {
+  blogById(_id: $blogid) {
+    _id
+    name
+    img
+    des
+    details
+  }
+}
+
+{
+  "blogid": "648ed222196744f3c335dbbf"
+}

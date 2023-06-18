@@ -1,0 +1,34 @@
+query getServices {
+  services {
+    _id
+    name
+    category
+    stock
+    des
+    qty
+    rating
+    price
+    img
+  }
+}
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+query servicesById($servicesid: ID!) {
+  servicesById(_id: $servicesid) {
+    _id
+    name
+    category
+    stock
+    des
+    qty
+    rating
+    price
+    img
+  }
+}
+
+{
+  "servicesid": "648ed222196744f3c335dbb0"
+}

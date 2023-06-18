@@ -1,0 +1,31 @@
+query getPortfolio {
+  portfolio {
+    _id
+    name
+    category
+    des
+    img
+    live
+    fontCode
+    backCode
+  }
+}
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+query portfolioById($portfolioid: ID!) {
+  portfolioById(_id: $portfolioid) {
+    _id
+    name
+    category
+    des
+    img
+    live
+    fontCode
+    backCode
+  }
+}
+
+{
+  "portfolioid": "648ed222196744f3c335dbb6"
+}

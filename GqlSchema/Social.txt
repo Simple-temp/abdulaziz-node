@@ -1,0 +1,21 @@
+query getIcon{
+  SocailIcon {
+    _id
+    name
+    iconLink
+  }
+}
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+query iconById($iconid: ID!) {
+  socailIconById(_id: $iconid) {
+    _id
+    name
+    iconLink
+  }
+}
+
+{
+  "iconid": "648ed221196744f3c335dbaa"
+}

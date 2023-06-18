@@ -1,0 +1,23 @@
+query getContact {
+  contact {
+    _id
+    name 
+    email
+    sms
+  }
+}
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+query contactById($contactid: ID!) {
+  contactById(_id: $contactid) {
+    _id
+    name
+    email
+    sms
+  }
+}
+
+{
+  "contactid": "648ed222196744f3c335dbc6"
+}

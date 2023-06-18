@@ -1,0 +1,9 @@
+query getAbout {
+  about {
+    _id
+    name
+    des1
+    des2
+    img
+  }
+}

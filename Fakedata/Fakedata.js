@@ -15,6 +15,12 @@ export const user = [
         password : bcrypt.hashSync("123456"),
         isAdmin : false
     },
+    {
+        name : "Ayesha",
+        email : "ayesha22@gmail.com",
+        password : bcrypt.hashSync("123456"),
+        isAdmin : false
+    },
 ]
 
 

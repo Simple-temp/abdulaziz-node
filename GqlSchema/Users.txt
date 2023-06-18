@@ -1,0 +1,25 @@
+query getUsers {
+  users {
+    _id
+    name
+    email
+    password
+    isAdmin
+  }
+}
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+query userById($userid: ID!) {
+  usersById(_id: $userid) {
+    _id
+    name
+    email
+    password
+    isAdmin
+  }
+}
+
+{
+  "userid": "648ed221196744f3c335dba2"
+}
