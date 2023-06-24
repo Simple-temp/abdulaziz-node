@@ -35,7 +35,7 @@ const resolvers = {
     Mutation: {
 
         create_icon: async (_, { CreateIcon }) => {
-            console.log(CreateIcon)
+
             const newIcon = new Social({
                 ...CreateIcon
             })
@@ -44,8 +44,26 @@ const resolvers = {
         },
 
         create_about: async (_, { input }) => {
+            
+            if(input.file === null){
+                const about = await AboutMe.findById({ _id: input._id })
 
-            const { createReadStream, filename } = await input.file;
+                if (about) {
+
+                    about.name = input.name || about.name
+                    about.file = input.file || about.file
+                    about.des1 = input.des1 || about.des1
+                    about.des2 = input.des2 || about.des2
+                    about.title = input.title || about.title
+
+                }
+
+                return await about.save()
+            }
+
+            if (input.file !== null) {
+
+                const { createReadStream, filename } = await input.file;
 
                 const stream = createReadStream();
                 const path = join('uploads', `${filename}`);
@@ -77,7 +95,15 @@ const resolvers = {
 
                 return await about.save()
 
-        }
+            }
+        },
+
+        deleteSocialIcon: async (_,{_id}) =>{
+
+            const social = await Social.findById({_id})
+            return await social.deleteOne()
+
+        },
 
     },
 };

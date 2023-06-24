@@ -36,3 +36,17 @@ mutation createNewIcon($createIcon: createIcon!) {
     "iconLink" : ""
   }
 }
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+mutation deleteSocialIcon($id: ID!) {
+  deleteSocialIcon(_id: $id) {
+    _id
+    name
+    iconLink
+  }
+}
+
+{
+  "id": "dd"
+}

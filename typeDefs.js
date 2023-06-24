@@ -89,6 +89,7 @@ const typeDefs = gql`
 
     create_icon ( CreateIcon : createIcon! ) : SocailIcon!
     create_about( input: AboutInput ): AboutMe
+    deleteSocialIcon( _id : ID! ) : SocailIcon
 
   }
 
