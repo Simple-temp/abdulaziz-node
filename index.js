@@ -2,20 +2,28 @@ import express from "express";
 import mongoose from "mongoose"
 import cors from "cors";
 import dotenv from "dotenv";
-import { ApolloServer } from "apollo-server-express"
-import SeedRouter from "./Routes/SeedRouter.js"; 
-import typeDefs from "./typeDefs.js" 
-import resolvers from "./Resolvers.js"; 
+import { ApolloServer } from "apollo-server-express";
+import SeedRouter from "./Routes/SeedRouter.js";
+import typeDefs from "./typeDefs.js";
+import resolvers from "./Resolvers.js";
+import { graphqlUploadExpress } from "graphql-upload";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-dotenv.config() // dotenv configuration
+dotenv.config() 
 
-const app = express() // Create an Express application
-app.use(cors()) // middleware use
-app.use(express.json()) // middleware use
-app.use(express.urlencoded({ extended: true })); // middleware use
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const app = express() 
+app.use(cors()) 
+app.use(express.json()) 
+app.use(express.urlencoded({ extended: false })); 
+app.use(graphqlUploadExpress());
+app.use('/uploads', express.static(join(__dirname, 'uploads'))); 
 
 
-mongoose.connect(process.env.MONGO_DB, { useNewUrlParser: true, useUnifiedTopology: true }) // connected to the mongodb using mongoose
+mongoose.connect(process.env.MONGO_DB, { useNewUrlParser: true, useUnifiedTopology: true }) 
   .then(() => {
     console.log("connected to the db")
   }).catch((err) => {
@@ -23,18 +31,23 @@ mongoose.connect(process.env.MONGO_DB, { useNewUrlParser: true, useUnifiedTopolo
   })
 
 
-const server = new ApolloServer({ // connected to the apolloserver
+const server = new ApolloServer({ 
   typeDefs,
   resolvers,
-  introspection: process.env.NODE_ENV !== 'production', // Enable introspection in non-production environments
-  playground: process.env.NODE_ENV !== 'production', // Enable playground in non-production environments
+  introspection: process.env.NODE_ENV !== 'production', 
+  playground: process.env.NODE_ENV !== 'production', 
 });
 
-server.start().then(() => {// Apply Apollo Server as middleware to Express
+server.start().then(() => {
   server.applyMiddleware({ app });
 });
 
-app.use("/api/seed", SeedRouter) // all available routes are here
+app.use("/api/seed", SeedRouter) 
+
+// const upload = multer({ dest: 'uploads/' });
+// app.post('/upload', upload.single('file'), (req, res) => {
+//   res.json({ file: req.file });
+// });
 
 app.get("/", (req, res) => { // here is your rest api 
   res.send("it's perfectly works")

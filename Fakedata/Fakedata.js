@@ -28,7 +28,7 @@ export const user = [
 
 export const about = {
     name: "Abdul Aziz",
-    img: "https://res.cloudinary.com/image-hosting-api/image/upload/v1652429562/samples/people/boy-snow-hoodie.jpg",
+    file: "https://res.cloudinary.com/image-hosting-api/image/upload/v1652429562/samples/people/boy-snow-hoodie.jpg",
     des1: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id magni a totam alias, deserunt repellendus. Quaerat, beatae provident! Repellendus, sed. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id magni a totam alias, deserunt repellendus. Quaerat, beatae provident! Repellendus, sed.",
     des2: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id magni a totam alias, deserunt repellendus. Quaerat, beatae provident! Repellendus, sed. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id magni a totam alias, deserunt repellendus. Quaerat, beatae provident! Repellendus, sed.",
     title: "I am a website developer",

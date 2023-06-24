@@ -19,3 +19,20 @@ query iconById($iconid: ID!) {
 {
   "iconid": "648ed221196744f3c335dbaa"
 }
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+mutation createNewIcon($createIcon: createIcon!) {
+  create_icon(CreateIcon: $createIcon) {
+    _id
+    name
+    iconLink
+  }
+}
+
+{
+  "createIcon": {
+    "name" : "",
+    "iconLink" : ""
+  }
+}

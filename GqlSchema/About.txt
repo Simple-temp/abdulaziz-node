@@ -4,6 +4,22 @@ query getAbout {
     name
     des1
     des2
-    img
+    file
+    title
   }
 }
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+mutation createNewAbout($input: AboutInput!) {
+  create_about(input: $input) {
+    _id
+    name
+    file 
+    des1
+    des2
+    title
+  }
+}
+
+varriable : input

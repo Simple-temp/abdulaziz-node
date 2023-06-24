@@ -21,13 +21,19 @@ const typeDefs = gql`
   type AboutMe {
     _id : ID!
     name: String!
-    img: String!
+    file: String!
     des1: String!
     des2: String!
+    title: String!
   }
 
   type SocailIcon {
     _id : ID!
+    name: String!
+    iconLink: String!
+  }
+
+  input createIcon {
     name: String!
     iconLink: String!
   }
@@ -78,6 +84,24 @@ const typeDefs = gql`
     isAdmin: Boolean!
   }
 
+
+  type Mutation {
+
+    create_icon ( CreateIcon : createIcon! ) : SocailIcon!
+    create_about( input: AboutInput ): AboutMe
+
+  }
+
+  scalar Upload
+
+  input AboutInput {
+    _id: ID
+    name: String
+    file: Upload
+    des1: String
+    des2: String
+    title: String
+  }
 
 `;
 

@@ -5,22 +5,80 @@ import Contact from "./Models/ContactModel.js";
 import Portfolio from "./Models/PortfolioModel.js";
 import Services from "./Models/ServicesModel.js";
 import Users from "./Models/UserModel.js";
+import { GraphQLUpload } from 'graphql-upload';
+import { createWriteStream } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
 const resolvers = {
     Query: {
-        about : async () => await AboutMe.find({}),
-        SocailIcon : async () => await Social.find({}),
-        socailIconById : async (_,{_id}) => await Social.findById({_id}),
-        blog : async () => await Blog.find({}),
-        blogById : async (_,{_id}) => await Blog.findById({_id}),
-        contact : async () => await Contact.find({}),
-        contactById : async (_,{_id}) => await Contact.findById({_id}),
-        portfolio : async () => await Portfolio.find({}),
-        portfolioById : async (_,{_id}) => await Portfolio.findById({_id}),
-        services : async () => await Services.find({}),
-        servicesById : async (_,{_id}) => await Services.findById({_id}),
-        users : async () => await Users.find({}),
-        usersById : async (_,{_id}) => await Users.findById({_id}),
+        about: async () => await AboutMe.find({}),
+        SocailIcon: async () => await Social.find({}),
+        socailIconById: async (_, { _id }) => await Social.findById({ _id }),
+        blog: async () => await Blog.find({}),
+        blogById: async (_, { _id }) => await Blog.findById({ _id }),
+        contact: async () => await Contact.find({}),
+        contactById: async (_, { _id }) => await Contact.findById({ _id }),
+        portfolio: async () => await Portfolio.find({}),
+        portfolioById: async (_, { _id }) => await Portfolio.findById({ _id }),
+        services: async () => await Services.find({}),
+        servicesById: async (_, { _id }) => await Services.findById({ _id }),
+        users: async () => await Users.find({}),
+        usersById: async (_, { _id }) => await Users.findById({ _id }),
+    },
+
+    Upload: GraphQLUpload,
+
+    Mutation: {
+
+        create_icon: async (_, { CreateIcon }) => {
+            console.log(CreateIcon)
+            const newIcon = new Social({
+                ...CreateIcon
+            })
+
+            return await newIcon.save()
+        },
+
+        create_about: async (_, { input }) => {
+
+            const { createReadStream, filename } = await input.file;
+
+                const stream = createReadStream();
+                const path = join('uploads', `${filename}`);
+                const NewPath = `${filename}`
+
+                const uploadPromise = new Promise((resolve, reject) => {
+                    const writeStream = createWriteStream(path);
+                    stream.on('error', (error) => reject(error));
+                    writeStream.on('finish', () => resolve());
+                    writeStream.on('error', (error) => reject(error));
+                    stream.pipe(writeStream);
+                });
+
+                await uploadPromise;
+
+                const fileUrl = `http://localhost:5000/uploads/${NewPath}`;
+
+                const about = await AboutMe.findById({ _id: input._id })
+
+                if (about) {
+
+                    about.name = input.name || about.name
+                    about.file = fileUrl || about.file
+                    about.des1 = input.des1 || about.des1
+                    about.des2 = input.des2 || about.des2
+                    about.title = input.title || about.title
+
+                }
+
+                return await about.save()
+
+        }
+
     },
 };
 
