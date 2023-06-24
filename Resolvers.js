@@ -66,8 +66,8 @@ const resolvers = {
                 const { createReadStream, filename } = await input.file;
 
                 const stream = createReadStream();
-                const path = join('uploads', `${filename}`);
-                const NewPath = `${filename}`
+                const path = join('uploads', `${Date.now()}-${filename}`);
+                const NewPath = `${Date.now()}-${filename}`
 
                 const uploadPromise = new Promise((resolve, reject) => {
                     const writeStream = createWriteStream(path);
