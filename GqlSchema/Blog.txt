@@ -23,3 +23,55 @@ query blogById($blogid: ID!) {
 {
   "blogid": "648ed222196744f3c335dbbf"
 }
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+mutation newBlog ($blogInputInfo : BlogInputCreate){
+  create_blog (input : $blogInputInfo) {
+    _id
+    name
+    img
+    des
+    details
+  }
+}
+
+{
+  "blogInputInfo" : {
+    "name": "jhbj"
+  }
+}
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+mutation deleteBlog( $blogid : ID){
+  delete_blog( _id : $blogid){
+    _id
+    name
+    img
+    des
+    details
+  }
+}
+
+{
+  "blogid" : "jvbdf"
+}
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+mutation updateBlog ( $blogUpdateInfo : BlogInputUpdate) {
+  update_blog ( input : $blogUpdateInfo){
+    _id
+    name
+    img
+    des
+    details
+  }
+}
+
+{
+  "blogUpdateInfo" : {
+    "name" : " jhbjv"
+  }
+}

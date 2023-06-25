@@ -87,14 +87,21 @@ const typeDefs = gql`
 
   type Mutation {
 
+    # start mutation for ABOUT section 
     create_icon ( CreateIcon : createIcon! ) : SocailIcon!
     create_about( input: AboutInput ): AboutMe
     deleteSocialIcon( _id : ID! ) : SocailIcon
+
+    # start mutation for BLOG section 
+    create_blog ( input : BlogInputCreate ) : Blog
+    update_blog ( input : BlogInputUpdate ) : Blog
+    delete_blog ( _id : ID ) : Blog
 
   }
 
   scalar Upload
 
+  # AboutInput used to update about information not creating---------
   input AboutInput {
     _id: ID
     name: String
@@ -102,6 +109,23 @@ const typeDefs = gql`
     des1: String
     des2: String
     title: String
+  }
+
+  # this BlogInput for creating a new Blog-----------------
+  input BlogInputCreate {
+    name: String
+    img: Upload
+    des: String
+    details: String
+  }
+
+  # this BlogInput for update blog---------------
+  input BlogInputUpdate {
+    _id: ID
+    name: String
+    img: Upload
+    des: String
+    details: String
   }
 
 `;

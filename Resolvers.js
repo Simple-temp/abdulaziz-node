@@ -44,8 +44,8 @@ const resolvers = {
         },
 
         create_about: async (_, { input }) => {
-            
-            if(input.file === null){
+
+            if (input.file === null) {
                 const about = await AboutMe.findById({ _id: input._id })
 
                 if (about) {
@@ -98,12 +98,103 @@ const resolvers = {
             }
         },
 
-        deleteSocialIcon: async (_,{_id}) =>{
+        deleteSocialIcon: async (_, { _id }) => {
 
-            const social = await Social.findById({_id})
+            const social = await Social.findById({ _id })
             return await social.deleteOne()
 
         },
+
+        // =============================================================================start BLOG 
+
+        create_blog: async (_, { input }) => {
+
+            const { createReadStream, filename } = await input.img;
+
+            const stream = createReadStream();
+            const path = join('uploads', `${filename}`);
+            const NewPath = `${filename}`
+
+            const uploadPromise = new Promise((resolve, reject) => {
+                const writeStream = createWriteStream(path);
+                stream.on('error', (error) => reject(error));
+                writeStream.on('finish', () => resolve());
+                writeStream.on('error', (error) => reject(error));
+                stream.pipe(writeStream);
+            });
+
+            await uploadPromise;
+
+            const fileUrl = `http://localhost:5000/uploads/${NewPath}`;
+
+            const newBlog = new Blog({
+                ...input,
+                img: fileUrl
+            })
+
+            return await newBlog.save()
+
+        },
+
+        update_blog: async (_, { input }) => {
+
+            if (input.img === null) {
+
+                const blog = await Blog.findById({ _id: input._id })
+
+                if (blog) {
+
+                    blog.name = input.name || blog.name
+                    blog.img = input.img || blog.img
+                    blog.des = input.des || blog.des
+                    blog.details = input.details || blog.details
+
+                }
+
+                return await blog.save()
+            }
+
+            if (input.img !== null) {
+                const { createReadStream, filename } = await input.img;
+
+                const stream = createReadStream();
+                const path = join('uploads', `${filename}`);
+                const NewPath = `${filename}`
+
+                const uploadPromise = new Promise((resolve, reject) => {
+                    const writeStream = createWriteStream(path);
+                    stream.on('error', (error) => reject(error));
+                    writeStream.on('finish', () => resolve());
+                    writeStream.on('error', (error) => reject(error));
+                    stream.pipe(writeStream);
+                });
+
+                await uploadPromise;
+
+                const fileUrl = `http://localhost:5000/uploads/${NewPath}`;
+
+                const blog = await Blog.findById({ _id: input._id })
+
+                if (blog) {
+
+                    blog.name = input.name || blog.name
+                    blog.img = fileUrl || blog.img
+                    blog.des = input.des || blog.des
+                    blog.details = input.details || blog.details
+
+                }
+
+                return await blog.save()
+            }
+
+        },
+
+        delete_blog: async (_, { _id }) => {
+
+            const blog = await Blog.findById({ _id })
+            return await blog.deleteOne()
+
+        }
 
     },
 };
