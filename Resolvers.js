@@ -194,6 +194,11 @@ const resolvers = {
             const blog = await Blog.findById({ _id })
             return await blog.deleteOne()
 
+        },
+
+        delete_services: async (_,{_id}) =>{
+            const services = await Services.findById({_id})
+            return await services.deleteOne()
         }
 
     },

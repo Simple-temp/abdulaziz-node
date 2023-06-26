@@ -97,6 +97,9 @@ const typeDefs = gql`
     update_blog ( input : BlogInputUpdate ) : Blog
     delete_blog ( _id : ID ) : Blog
 
+    # start mutation for BLOG section 
+    delete_services ( _id : ID ) : Services
+
   }
 
   scalar Upload

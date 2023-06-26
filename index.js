@@ -9,6 +9,7 @@ import resolvers from "./Resolvers.js";
 import { graphqlUploadExpress } from "graphql-upload";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import ServicesRoute from "./Routes/ServicesRoute.js";
 
 dotenv.config() 
 
@@ -19,7 +20,7 @@ const app = express()
 app.use(cors()) 
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: false })); 
-app.use(graphqlUploadExpress());
+app.use('/graphql',graphqlUploadExpress());
 app.use('/uploads', express.static(join(__dirname, 'uploads'))); 
 
 
@@ -43,13 +44,10 @@ server.start().then(() => {
 });
 
 app.use("/api/seed", SeedRouter) 
+app.use("/api/services", ServicesRoute)
 
-// const upload = multer({ dest: 'uploads/' });
-// app.post('/upload', upload.single('file'), (req, res) => {
-//   res.json({ file: req.file });
-// });
 
-app.get("/", (req, res) => { // here is your rest api 
+app.get("/", (req, res) => { 
   res.send("it's perfectly works")
 })
 
