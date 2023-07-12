@@ -199,6 +199,11 @@ const resolvers = {
         delete_services: async (_,{_id}) =>{
             const services = await Services.findById({_id})
             return await services.deleteOne()
+        },
+
+        delete_portfolio: async (_,{_id}) =>{
+            const portfolio = await Portfolio.findById({_id})
+            return await portfolio.deleteOne()
         }
 
     },

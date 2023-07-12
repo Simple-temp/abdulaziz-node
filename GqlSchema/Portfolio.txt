@@ -29,3 +29,15 @@ query portfolioById($portfolioid: ID!) {
 {
   "portfolioid": "648ed222196744f3c335dbb6"
 }
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+mutation deletePortfolio($portfolioid: ID!) {
+  delete_portfolio(_id: $portfolioid) {
+    _id
+  }
+}
+
+{
+  "portfolioid": "dd"
+}

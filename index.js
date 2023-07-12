@@ -10,6 +10,7 @@ import { graphqlUploadExpress } from "graphql-upload";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import ServicesRoute from "./Routes/ServicesRoute.js";
+import PortfolioRoute from "./Routes/PortfolioRoute.js";
 
 dotenv.config() 
 
@@ -45,6 +46,7 @@ server.start().then(() => {
 
 app.use("/api/seed", SeedRouter) 
 app.use("/api/services", ServicesRoute)
+app.use("/api/portfolio", PortfolioRoute)
 
 
 app.get("/", (req, res) => { 

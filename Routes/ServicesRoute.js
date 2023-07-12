@@ -49,10 +49,11 @@ ServicesRoute.post("/createservices",upload.single("img"), async (req, res)=>{
 ServicesRoute.put("/updateservices/:id",upload.single("img"), async (req, res)=>{
 
     const services = await Services.findById({ _id : req.params.id})
-    const { filename } = req.file;
-    const fileUrl = `http://localhost:5000/uploads/${filename}`
     
-    if(services){
+    if(services && req.file){
+
+        const { filename } = req.file;
+        const fileUrl = `http://localhost:5000/uploads/${filename}`
 
         services.name = req.body.name || services.name
         services.category = req.body.category || services.category
@@ -62,6 +63,18 @@ ServicesRoute.put("/updateservices/:id",upload.single("img"), async (req, res)=>
         services.rating = req.body.rating || services.rating
         services.price = req.body.price || services.price
         services.img = fileUrl || services.img
+    }
+
+    if(services){
+
+        services.name = req.body.name || services.name
+        services.category = req.body.category || services.category
+        services.stock = req.body.stock || services.stock
+        services.des = req.body.des || services.des
+        services.qty = req.body.qty || services.qty
+        services.rating = req.body.rating || services.rating
+        services.price = req.body.price || services.price
+        services.img = req.file || services.img
     }
         
     const updateService = await services.save();
